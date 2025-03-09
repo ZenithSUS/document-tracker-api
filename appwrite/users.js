@@ -40,7 +40,7 @@ export const createUser = async (data) => {
     const result = await databases.createDocument(
       DATABASE_ID,
       USER_COLLECTION_ID,
-      ID.unique(),
+      data.id,
       data
     );
     return result;
@@ -50,17 +50,4 @@ export const createUser = async (data) => {
   }
 };
 
-export const createUserWithCredentials = async (email, password, fullname) => {
-  try {
-    const result = await users.createBcryptUser(
-      ID.unique(),
-      email,
-      password,
-      fullname
-    );
-    return result;
-  } catch (error) {
-    console.error("Failed to create user with credentials:", error);
-    throw error;
-  }
-};
+
