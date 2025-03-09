@@ -27,3 +27,12 @@ export const getUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const createUser = async (req, res) => {
+  try {
+    const { email, createdAt } = req.body;
+  } catch (error) {
+    console.error("Failed to create user:", error);
+    res.status(500).json({ message: error.message})
+  }
+}
