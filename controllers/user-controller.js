@@ -1,4 +1,9 @@
-import { listUsers, getUserById } from "../appwrite/users.js";
+import {
+  listUsers,
+  getUserById,
+  createUser as storeUser,
+  createUserWithCredentials as storeUserWithCredentials,
+} from "../appwrite/users.js";
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -30,9 +35,21 @@ export const getUser = async (req, res) => {
 
 export const createUser = async (req, res) => {
   try {
-    const { email, createdAt } = req.body;
+    const { email, firstName, middleName, lastName, password } = req.body;
+    
+    if (!email || !firstName || !lastName || !password) {
+      return res
+        .status(400)
+        .json({ status: res.statusCode, message: "Missing required fields" });
+    }
+
+    const fullname = `${firstName} ${middleName} ${lastName}`;
+    await storeUserWithCredentials(email, password, fullname);
+    await storeUser({ email, firstName, middleName, lastName });
+
+    return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     console.error("Failed to create user:", error);
-    res.status(500).json({ message: error.message})
+    res.status(500).json({ status: res.statusCode, message: error.message });
   }
-}
+};

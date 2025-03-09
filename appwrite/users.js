@@ -1,5 +1,11 @@
-import { Query } from "node-appwrite";
-import { DATABASE_ID, USER_COLLECTION_ID, databases } from "./index.js";
+import { Query, ID } from "node-appwrite";
+import {
+  DATABASE_ID,
+  USER_COLLECTION_ID,
+  databases,
+  users,
+  account,
+} from "./index.js";
 
 export const listUsers = async () => {
   try {
@@ -25,6 +31,36 @@ export const getUserById = async (userId) => {
     return result;
   } catch (error) {
     console.error("Failed to get user by ID:", error);
+    throw error;
+  }
+};
+
+export const createUser = async (data) => {
+  try {
+    const result = await databases.createDocument(
+      DATABASE_ID,
+      USER_COLLECTION_ID,
+      ID.unique(),
+      data
+    );
+    return result;
+  } catch (error) {
+    console.error("Failed to create user:", error);
+    throw error;
+  }
+};
+
+export const createUserWithCredentials = async (email, password, fullname) => {
+  try {
+    const result = await users.createBcryptUser(
+      ID.unique(),
+      email,
+      password,
+      fullname
+    );
+    return result;
+  } catch (error) {
+    console.error("Failed to create user with credentials:", error);
     throw error;
   }
 };
