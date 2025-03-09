@@ -35,12 +35,12 @@ export const getUserById = async (userId) => {
   }
 };
 
-export const createUser = async (data) => {
+export const createUser = async (data, id) => {
   try {
     const result = await databases.createDocument(
       DATABASE_ID,
       USER_COLLECTION_ID,
-      data.id,
+      id,
       data
     );
     return result;

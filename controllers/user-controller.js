@@ -36,13 +36,13 @@ export const createUser = async (req, res) => {
   try {
     const { id, email, firstName, middleName, lastName } = req.body;
 
-    // if (!email || !firstName || !lastName) {
-    //   return res
-    //     .status(400)
-    //     .json({ status: res.statusCode, message: "Missing required fields" });
-    // }
+    if (!email || !firstName || !lastName) {
+      return res
+        .status(400)
+        .json({ status: res.statusCode, message: "Missing required fields"});
+    }
 
-    await storeUser({ id, email, firstName, middleName, lastName });
+    await storeUser({ email, firstName, middleName, lastName }, id);
 
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
