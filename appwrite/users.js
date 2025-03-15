@@ -1,10 +1,9 @@
-import { Query, ID } from "node-appwrite";
+import { Query } from "node-appwrite";
 import {
   DATABASE_ID,
   USER_COLLECTION_ID,
   databases,
-  users,
-  account,
+  users
 } from "./index.js";
 
 export const listUsers = async () => {
@@ -12,7 +11,7 @@ export const listUsers = async () => {
     const result = await databases.listDocuments(
       DATABASE_ID,
       USER_COLLECTION_ID,
-      [Query.orderDesc("$createdAt"), Query.limit(100)]
+      [Query.orderDesc("$createdAt")]
     );
     return result.documents;
   } catch (error) {
@@ -43,6 +42,7 @@ export const createUser = async (data, id) => {
       id,
       data
     );
+    await users.updateLabels(result.$id, ['User'])
     return result;
   } catch (error) {
     console.error("Failed to create user:", error);
