@@ -11,3 +11,4 @@ export const account = new Account(client);
 export const databases = new Databases(client);
 export const DATABASE_ID = process.env.DATABASE_ID;
 export const USER_COLLECTION_ID = process.env.USER_COLLECTION_ID;
+export const DOCUMENT_COLLECTION_ID = process.env.DOCUMENT_COLLECTION_ID;

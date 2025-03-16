@@ -3,6 +3,7 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import users from "./routes/users.js";
+import documents from "./routes/documents.js";
 import { logger } from "./middleware/logger.js";
 import { notFound } from "./middleware/not-found.js";
 import { error } from "./middleware/error.js";
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(logger);
 
 app.use("/api/users", users);
+app.use("api/documents", documents);
 
 app.use(notFound);
 app.use(error);
