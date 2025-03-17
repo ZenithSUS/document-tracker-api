@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(logger);
 
 app.use("/api/users", users);
-app.use("api/documents", documents);
+app.use("/api/documents", documents);
 
 app.use(notFound);
 app.use(error);

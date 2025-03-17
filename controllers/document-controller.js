@@ -14,6 +14,7 @@ export const getAllDocuments = async (req, res) => {
     if (!isNaN(limit) && limit > 0) {
       return res.status(200).json(documents.slice(0, limit));
     }
+    return res.status(200).json(documents);
   } catch (error) {
     console.error("Failed to get all documents:", error);
     res.status(500).json({ message: error.message });
